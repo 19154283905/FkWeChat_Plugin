@@ -11,7 +11,7 @@ const sourcePluginsDir = path.join(__dirname, '..', '..', 'main', 'plugins');
 const outputApiDir = path.join(__dirname, '..', '..', 'dist', 'api');
 const outputFile = path.join(outputApiDir, 'plugins.json');
 
-// 解码 Unicode 转义字符串（如 \u96F2\u4E0A\u5347 → 雲上升）
+// 解码 Unicode 转义字符串
 function decodeUnicode(str) {
   return str.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
 }
@@ -46,16 +46,19 @@ async function generatePluginsAPI() {
     
     for (const folder of pluginFolders) {
       const infoPropPath = path.join(sourcePluginsDir, folder, 'info.prop');
-      const readmePath = path.join(sourcePluginsDir, folder, 'README.md');
       
       if (fs.existsSync(infoPropPath)) {
         const content = fs.readFileSync(infoPropPath, 'utf-8');
         const props = parseInfoProp(content);
         
-        // 读取 README.md 内容
+        // 查找忽略大小写的 readme.md 文件
         let readme = '';
-        if (fs.existsSync(readmePath)) {
-          readme = fs.readFileSync(readmePath, 'utf-8');
+        const filesInDir = fs.readdirSync(path.join(sourcePluginsDir, folder));
+        const readmeFile = filesInDir.find(f => f.toLowerCase() === 'readme.md');
+        
+        if (readmeFile) {
+          const actualReadmePath = path.join(sourcePluginsDir, folder, readmeFile);
+          readme = fs.readFileSync(actualReadmePath, 'utf-8');
         }
         
         plugins.push({
