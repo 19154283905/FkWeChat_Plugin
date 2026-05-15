@@ -146,17 +146,26 @@ export default function PluginDetail() {
         </div>
 
         {/* 插件说明 */}
-        {currentPlugin.pluginFiles?.['README.md'] && (
-          <div className="rounded-md border border-gray-200 p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <FileText className="h-4 w-4 text-gray-500" />
-              <h2 className="text-sm font-semibold text-gray-900">插件说明</h2>
+        {(() => {
+          const readmeKey = Object.keys(currentPlugin.pluginFiles || {}).find(
+            (key) => key.toLowerCase() === 'readme.md'
+          );
+          const readmeContent = readmeKey ? currentPlugin.pluginFiles[readmeKey] : null;
+
+          if (!readmeContent) return null;
+
+          return (
+            <div className="rounded-md border border-gray-200 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="h-4 w-4 text-gray-500" />
+                <h2 className="text-sm font-semibold text-gray-900">插件说明</h2>
+              </div>
+              <pre className="whitespace-pre-wrap text-sm text-gray-600 bg-gray-50 rounded-md p-4 font-mono leading-relaxed">
+                {readmeContent}
+              </pre>
             </div>
-            <pre className="whitespace-pre-wrap text-sm text-gray-600 bg-gray-50 rounded-md p-4 font-mono leading-relaxed">
-              {currentPlugin.pluginFiles['README.md']}
-            </pre>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );
