@@ -84,15 +84,20 @@ export default function PluginDetail() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* 固定的返回按钮 */}
+      <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
+        <div className="max-w-3xl mx-auto px-4 py-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            返回插件列表
+          </Link>
+        </div>
+      </div>
+
       <div className="max-w-3xl mx-auto px-4 py-6 sm:py-8">
-        {/* 返回按钮 */}
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 mb-6"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          返回插件列表
-        </Link>
 
         {/* 插件信息 */}
         <div className="rounded-md border border-gray-200 p-5 mb-6">

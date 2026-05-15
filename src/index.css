@@ -46,7 +46,7 @@ button {
   transition: all 0.2s ease;
 }
 
-/* 自定义滚动条 */
+/* 自定义滚动条 - 蓝灰配色 */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -54,13 +54,18 @@ button {
 
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #93c5fd;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #60a5fa;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #3b82f6;
 }
